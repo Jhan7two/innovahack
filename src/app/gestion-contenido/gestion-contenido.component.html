@@ -91,7 +91,21 @@
 
     <!-- Sección derecha: Contenido Existente -->
     <div class="existing-section">
-      <h2>Contenido Existente</h2>
+      <div class="section-header">
+        <h2>Contenido Existente</h2>
+        <div class="categoria-filter">
+          <label for="filtro-categoria">Categoría:</label>
+          <select 
+            id="filtro-categoria"
+            class="filter-select"
+            [(ngModel)]="filtroCategoria"
+            (change)="onFiltroCategoriaChange()">
+            <option value="todas">Todas</option>
+            <option value="Pre-Incubacion">Pre-Incubación</option>
+            <option value="Incubadora">Incubadora</option>
+          </select>
+        </div>
+      </div>
       
       <!-- Filtros -->
       <div class="filters">

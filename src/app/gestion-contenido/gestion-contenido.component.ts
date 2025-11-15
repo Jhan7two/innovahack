@@ -22,6 +22,7 @@ export class GestionContenidoComponent implements OnInit {
   
   // Filtros
   filtroTipo: TipoContenido | null = null;
+  filtroCategoria: CategoriaContenido | 'todas' = 'todas';
   
   // Formulario
   formData: ContenidoFormData = {
@@ -54,7 +55,7 @@ export class GestionContenidoComponent implements OnInit {
     this.contenidoService.obtenerContenidosPorTipo(this.filtroTipo).subscribe({
       next: (contenidos) => {
         this.contenidos = contenidos;
-        this.contenidosFiltrados = contenidos;
+        this.aplicarFiltros();
         this.cargando = false;
       },
       error: (error) => {
@@ -64,9 +65,24 @@ export class GestionContenidoComponent implements OnInit {
     });
   }
 
+  aplicarFiltros(): void {
+    let filtrados = [...this.contenidos];
+
+    // Filtrar por categoría
+    if (this.filtroCategoria !== 'todas') {
+      filtrados = filtrados.filter(c => c.categoria === this.filtroCategoria);
+    }
+
+    this.contenidosFiltrados = filtrados;
+  }
+
   onFiltroChange(tipo: TipoContenido | null): void {
     this.filtroTipo = tipo;
     this.cargarContenidos();
+  }
+
+  onFiltroCategoriaChange(): void {
+    this.aplicarFiltros();
   }
 
   // Drag & Drop handlers
