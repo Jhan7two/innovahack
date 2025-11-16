@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./gestion-contenido/gestion-contenido.component').then(m => m.GestionContenidoComponent)
   },
   {
+    path: 'test-evaluacion',
+    loadComponent: () => import('./test-evaluacion/test-evaluacion.component').then(m => m.TestEvaluacionComponent)
+  },
+  {
     path: '**',
     redirectTo: '/gestion-avance'
   }

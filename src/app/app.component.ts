@@ -19,6 +19,9 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
           <a routerLink="/gestion-contenido" routerLinkActive="active" class="nav-link">
             Gestión de Contenido
           </a>
+          <a routerLink="/test-evaluacion" routerLinkActive="active" class="nav-link">
+            Test de Evaluación
+          </a>
         </div>
       </nav>
       <main class="app-main">

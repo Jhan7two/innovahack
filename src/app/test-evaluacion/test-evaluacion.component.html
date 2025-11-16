@@ -1,0 +1,83 @@
+<div class="test-evaluacion-container">
+  <div class="header">
+    <h1>{{ pregunta.titulo }}</h1>
+    <p class="subtitle">{{ pregunta.subtitulo }}</p>
+  </div>
+
+  <div class="content-card" *ngIf="!respuestaEnviada">
+    <!-- Sección de Instrucciones -->
+    <div class="instrucciones-section">
+      <h2>Instrucciones</h2>
+      <p class="instrucciones-texto">{{ pregunta.instrucciones }}</p>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Pregunta de Evaluación -->
+    <div class="pregunta-section">
+      <h2>Pregunta de Evaluación</h2>
+      <p class="pregunta-texto">{{ pregunta.pregunta }}</p>
+    </div>
+
+    <!-- Área de Respuesta -->
+    <div class="respuesta-section">
+      <div class="textarea-container">
+        <textarea
+          [(ngModel)]="respuestaTexto"
+          placeholder="Escribe tu respuesta aquí..."
+          class="respuesta-textarea"
+          rows="8"
+          [disabled]="estaGrabando">
+        </textarea>
+        
+        <!-- Botón de micrófono flotante -->
+        <button
+          class="mic-button"
+          [class.recording]="estaGrabando"
+          (click)="iniciarGrabacion()"
+          type="button"
+          [title]="estaGrabando ? 'Detener grabación' : 'Iniciar grabación de voz'">
+          <span class="mic-icon" *ngIf="!estaGrabando">🎤</span>
+          <span class="mic-icon recording-icon" *ngIf="estaGrabando">⏹️</span>
+        </button>
+
+        <!-- Indicador de tiempo de grabación -->
+        <div class="grabacion-indicator" *ngIf="estaGrabando">
+          <span class="recording-dot"></span>
+          <span class="tiempo-texto">{{ formatearTiempo(tiempoGrabacion) }} / {{ formatearTiempo(tiempoLimite) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de Enviar -->
+    <button
+      class="btn-enviar"
+      (click)="enviarRespuesta()"
+      [disabled]="!puedeEnviar()"
+      type="button">
+      Enviar Respuesta
+    </button>
+  </div>
+
+  <!-- Vista de Respuesta Enviada -->
+  <div class="content-card respuesta-enviada" *ngIf="respuestaEnviada">
+    <div class="success-header">
+      <h2>✓ Respuesta Enviada</h2>
+      <p class="success-message">Tu respuesta ha sido enviada correctamente.</p>
+    </div>
+    
+    <div class="respuesta-mostrar">
+      <h3>Tu Respuesta:</h3>
+      <div class="respuesta-contenido">
+        {{ respuestaMostrar }}
+      </div>
+    </div>
+
+    <button
+      class="btn-reiniciar"
+      (click)="reiniciar()"
+      type="button">
+      Enviar Otra Respuesta
+    </button>
+  </div>
+</div>
+
