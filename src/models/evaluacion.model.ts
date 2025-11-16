@@ -6,6 +6,7 @@ export interface PreguntaEvaluacion {
   pregunta: string;
   tiempoLimiteGrabacion?: number; // en segundos
 }
+//Hola
 
 export interface RespuestaEvaluacion {
   preguntaId: string;
